@@ -10,7 +10,8 @@ Poor boilerplate for using flask &amp; bootstrap
 <pre>
     ./myapp.uwsgi.xml
     ./application.py
-    ./myapp
+    ./myapp/config.py
+    ./myapp (folder name)
 </pre>
 
 3. remove .git folder and init new git repository.
