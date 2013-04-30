@@ -1,10 +1,9 @@
 flask-plate
 ===========
 
-### Poor boilerplate for using flask &amp; bootstrap
+Poor boilerplate for using flask &amp; bootstrap
 
 ### Get Started
-<pre>
 1. git clone git://github.com/haje01/flask-plate
 
 2. find 'myapp's in the following files and change it into your own app's name
