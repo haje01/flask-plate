@@ -8,13 +8,13 @@
 {% block navbar %}
 <div class="navbar navbar-fixed-top" id="page-top">
   <div class="navbar-inner">
-      <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           {{ menu_item('home', active) }}
@@ -24,3 +24,11 @@
   </div>                                                                                                      </div>
 {% endblock %}
 
+{% block script %}
+<script src="/external/jquery-1.9.1.min.js"></script>
+<script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
+
+{% block pagescript %}
+{% endblock %}
+
+{% endblock %}
