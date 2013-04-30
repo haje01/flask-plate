@@ -24,9 +24,19 @@
   </div>                                                                                                      </div>
 {% endblock %}
 
-{% block script %}
+{% block layoutcss %}
+<style>
+.show-mobile-nav {
+    height: auto;
+}
+</style>
+{% endblock %}
+
+{% block layoutscript %}
 <script src="/external/jquery-1.9.1.min.js"></script>
 <script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
+<script>
+</script>
 
 {% block pagescript %}
 {% endblock %}
