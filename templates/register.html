@@ -1,0 +1,70 @@
+{% extends 'barebone.html' %}
+
+{% block layoutcss %}
+<style type="text/css">
+  body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+  }
+
+  .form-signup {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+  .form-signup .form-signup-heading,
+  .form-signup .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signup input[type="text"],
+  .form-signup input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<form class="form-signup" method="post" action="">
+<h2 class="form-signin-heading">Please register</h2>
+  <div class="text-error"></div>
+  <input id="email" name="email" type="text" class="input-block-level" placeholder="Email address" value="{{email}}">
+  <div class="text-error"></div>
+  <input id="passwd" name="passwd" type="password" class="input-block-level" placeholder="Password" value="{{passwd}}">
+  <label class="checkbox">
+    <input id="remember" name="remember" type="checkbox"> Remember me </input>
+  </label>
+  <button class="btn btn-large btn-primary" type="submit">Register</button>
+</form>
+{% endblock %}
+
+{% block layoutscript %}
+<script src="/external/jquery-1.9.1.min.js"></script>
+<script>
+{% if errmsg %}
+$(document).ready(function() {
+  console.log('---');
+  console.log('{{errid}}');
+  if ('{{errid}}' == '') {
+    alert('{{errmsg}}');
+    $('#email').focus();
+  } else {
+    $('#{{errid}}').addClass('error').focus().prev().html('<div>{{errmsg}}</div>');
+  }
+});
+{% endif %}
+</script>
+
+{% endblock %}
+
