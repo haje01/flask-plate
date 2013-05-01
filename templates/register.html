@@ -42,6 +42,8 @@
   <input id="email" name="email" type="text" class="input-block-level" placeholder="Email address" value="{{email}}">
   <div class="text-error"></div>
   <input id="passwd" name="passwd" type="password" class="input-block-level" placeholder="Password" value="{{passwd}}">
+  <div class="text-error"></div>
+  <input id="passwd2" name="passwd2" type="password" class="input-block-level" placeholder="Confirm password" value="{{passwd2}}">
   <label class="checkbox">
     <input id="remember" name="remember" type="checkbox"> Remember me </input>
   </label>
@@ -54,8 +56,13 @@
 <script>
 {% if errmsg %}
 $(document).ready(function() {
-  $('#{{errid}}').addClass('error').focus().prev().html('<div>{{errmsg}}</div>');
+  $('#{{errid}}').addClass('error').prev().html('<div>{{errmsg}}</div>');
+  setTimeout(function() {
+    $('#{{errid}}').focus();
+  }, 800);
 });
+{% else %}
+  $('#email').focus();
 {% endif %}
 </script>
 

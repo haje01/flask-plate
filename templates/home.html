@@ -1,20 +1,31 @@
 {% extends 'layout.html' %}
 
+{% macro home_hero(NAME, name, errmsg) %}
+<div style="margin-top: 30px">
+  {% if not errmsg %}
+    {% if not name %}
+      <p>Welcome to {{NAME}}!</p>
+    {% else %}
+    <p>Welcome, <b>{{name}}</b><!/p>
+    {% endif %}
+  {% else %}
+    <div class="text-error">{{errmsg}}</div>
+  {% endif %}
+  <p>Please Sign in or <a href="/register">Register</a>.</p>
+</div>
+{% endmacro %}
+
 {% block body %}
 
 <div class="hero-unit hidden-phone">
     <h1>{{NAME}}</h1>
-    <div style="margin-top: 30px">
-      <p>Welcome to {{NAME}}!</p>
-      <p>Please Sign in or <a href="/register">Register</a>.</p>
+    {{ home_hero(NAME, name, errmsg) }}
     </div>
 </div>
 <div class="visible-phone well">
     <h2>{{NAME}}</h2>
-    <div style="margin-top: 30px">
-      <p>Welcome to {{NAME}}!</p>
-      <p>Please Sign in or <a href="/register">Register</a>.</p>
-    </div>
+    {{ home_hero(NAME, name, errmsg) }}
 </div>
-
 {% endblock %}
+
+

@@ -20,11 +20,17 @@
           {{ menu_item('home', active) }}
           {{ menu_item('about', active) }}
         </ul>
-        <form class="navbar-form pull-right">
-          <input id="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
-          <input id="passwd" class="span2" type="password" placeholder="Password">
-          <button type="submit" class="btn">Sign in</button>
-        </form>
+        {% if name %}
+          <form class="navbar-form pull-right">
+            <label>Welcome, <b>{{name}}</b></label>
+          </form>
+        {% else %}
+          <form id="loginForm" class="navbar-form pull-right" method="post" action="/home">
+            <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
+            <input id="passwd" name="passwd" class="span2" type="password" placeholder="Password">
+            <button type="submit" class="btn">Sign in</button>
+          </form>
+        {% endif %}
       </div><!--/.nav-collapse -->                                                                                </div>
   </div>                                                                                                      </div>
 {% endblock %}
@@ -40,6 +46,7 @@
 {% block layoutscript %}
 <script src="/external/jquery-1.9.1.min.js"></script>
 <script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
+<script src="/external/bootstrap-2.3.1/js/bootstrap-popover.js"></script>
 <script>
 $(document).ready(function() {
 {% if email %}
@@ -48,6 +55,24 @@ $(document).ready(function() {
   $('#email').focus();
 {% endif %}
 });
+
+function checkRequestLogin(e) {
+  if (e && e.keyCode == 13) {
+    requestLogin();
+    return false;
+  }
+}
+
+function requestLogin() {
+  $.ajax({
+    type: 'POST',
+    url: '/login',
+    data: $('#loginForm').serialize(),
+    success: function(data) {
+      alert('asdf');
+    }
+  });
+}
 </script>
 
 {% block pagescript %}
