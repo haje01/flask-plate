@@ -54,14 +54,7 @@
 <script>
 {% if errmsg %}
 $(document).ready(function() {
-  console.log('---');
-  console.log('{{errid}}');
-  if ('{{errid}}' == '') {
-    alert('{{errmsg}}');
-    $('#email').focus();
-  } else {
-    $('#{{errid}}').addClass('error').focus().prev().html('<div>{{errmsg}}</div>');
-  }
+  $('#{{errid}}').addClass('error').focus().prev().html('<div>{{errmsg}}</div>');
 });
 {% endif %}
 </script>

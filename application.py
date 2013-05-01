@@ -46,11 +46,12 @@ def register():
         remember = request.form.get('remember', None)
         if not email or not validate_email(email):
             errid = "email"
-            errmsg = "Invalid email format"
+            errmsg = "Invalid email format."
         elif not passwd:
             errid = "passwd"
-            errmsg = "No password entered"
+            errmsg = "No password entered."
         elif is_account_exist(email):
+            errid = "email"
             errmsg = 'The email address is already registered.'
         else:
             register_account(email, passwd, remember)
