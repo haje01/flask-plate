@@ -6,7 +6,7 @@
     {% if not name %}
       <p>Welcome to {{NAME}}!</p>
     {% else %}
-    <p>Welcome, <b>{{name}}</b><!/p>
+    <p>Welcome, <b>{{name}}</b>!</p>
     {% endif %}
   {% else %}
     <div class="text-error">{{errmsg}}</div>
@@ -30,4 +30,12 @@
 </div>
 {% endblock %}
 
-
+{% block pagescript %}
+<script>
+  {% if errmsg %}
+  $(function() {
+      $('#email').focus();
+  });
+  {% endif %}
+</script>
+{% endblock %}

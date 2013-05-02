@@ -22,10 +22,11 @@
         </ul>
         {% if name %}
         <ul class="nav pull-right">
-          <li><a id="logout" href="#" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
+          <li><a id="logout" href="/logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
         </ul>
         {% else %}
-          <form id="loginForm" class="navbar-form pull-right" method="post" action="/home">
+          <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
+            <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> Remember </input></label>
             <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
             <input id="passwd" name="passwd" class="span2" type="password" placeholder="Password">
             <button type="submit" class="btn">Sign in</button>
@@ -56,24 +57,6 @@ $(document).ready(function() {
 {% endif %}
   $("[rel='tooltip']").tooltip();
 });
-
-function checkRequestLogin(e) {
-  if (e && e.keyCode == 13) {
-    requestLogin();
-    return false;
-  }
-}
-
-function requestLogin() {
-  $.ajax({
-    type: 'POST',
-    url: '/login',
-    data: $('#loginForm').serialize(),
-    success: function(data) {
-      alert('asdf');
-    }
-  });
-}
 </script>
 
 {% block pagescript %}

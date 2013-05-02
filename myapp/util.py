@@ -1,5 +1,6 @@
 import redis
 from myapp.config import NAME, DB_NO
+import os
 
 FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
 
@@ -14,7 +15,7 @@ def digest_passwd(email, passwd):
     salt = email + FIXEDSALT
     return hashlib.sha512(passwd + salt).hexdigest()
 
-def register_account(email, passwd, remember):
+def register_account(email, passwd):
     aid = redis.incr('account_cnt')
     rd_account_email = 'account:%s:email' % aid
     rd_account_passwd = 'account:%s:passwd' % aid
@@ -28,7 +29,8 @@ def register_account(email, passwd, remember):
 
 def check_login(email, _passwd):
     aid = redis.hget('account_id_map', email)
-    print aid
+    if not aid:
+        return None
     rd_account_email = 'account:%s:email' % aid
     rd_account_passwd = 'account:%s:passwd' % aid
 
@@ -42,4 +44,9 @@ def check_login(email, _passwd):
 def account_email_by_aid(aid):
     rd_account_email = 'account:%s:email' % aid
     return redis.get(rd_account_email)
+
+def get_secret_key():
+    if not redis.exists('app_secret_key'):
+        redis.set('app_secret_key', os.urandom(24))
+    return redis.get('app_secret_key')
 

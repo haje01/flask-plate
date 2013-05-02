@@ -1,7 +1,7 @@
 flask-plate
 ===========
 
-Poor boilerplate for using flask &amp; bootstrap
+Poor boilerplate for using flask, bootstrap &amp; redis.
 
 ### Get Started
 
@@ -16,6 +16,13 @@ Poor boilerplate for using flask &amp; bootstrap
         ./myapp
     </pre>
 
-3. Remove .git folder and init new git repository.
-4. Edit as your own!
+3. Install required python modules.
+    <pre>pip install -r requirements.txt</pre>
+
+4. Run application, then visit 'localhost:8000' with you browser.
+    <pre>python application.py</pre>
+
+5. After stop application, remove .git folder and init new git repository.
+
+6. Edit as your own!
 
