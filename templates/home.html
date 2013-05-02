@@ -11,7 +11,9 @@
   {% else %}
     <div class="text-error">{{errmsg}}</div>
   {% endif %}
-  <p>Please Sign in or <a href="/register">Register</a>.</p>
+  {% if not name %}
+    <p>Please Sign in or <a href="/register">Register</a>.</p>
+  {% endif %}
 </div>
 {% endmacro %}
 

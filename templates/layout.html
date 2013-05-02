@@ -21,9 +21,9 @@
           {{ menu_item('about', active) }}
         </ul>
         {% if name %}
-          <form class="navbar-form pull-right">
-            <label>Welcome, <b>{{name}}</b></label>
-          </form>
+        <ul class="nav pull-right">
+          <li><a id="logout" href="#" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
+        </ul>
         {% else %}
           <form id="loginForm" class="navbar-form pull-right" method="post" action="/home">
             <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
@@ -46,7 +46,7 @@
 {% block layoutscript %}
 <script src="/external/jquery-1.9.1.min.js"></script>
 <script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
-<script src="/external/bootstrap-2.3.1/js/bootstrap-popover.js"></script>
+<script src="/external/bootstrap-2.3.1/js/bootstrap-tooltip.js"></script>
 <script>
 $(document).ready(function() {
 {% if email %}
@@ -54,6 +54,7 @@ $(document).ready(function() {
 {% else %}
   $('#email').focus();
 {% endif %}
+  $("[rel='tooltip']").tooltip();
 });
 
 function checkRequestLogin(e) {
