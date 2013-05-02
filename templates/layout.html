@@ -6,60 +6,59 @@
 {% endmacro %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top" id="page-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-      </button>
-      <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          {{ menu_item('home', active) }}
-          {{ menu_item('about', active) }}
-        </ul>
-        {% if name %}
-        <ul class="nav pull-right">
-          <li><a id="logout" href="/logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
-        </ul>
-        {% else %}
-          <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
-            <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> Remember </input></label>
-            <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
-            <input id="passwd" name="passwd" class="span2" type="password" placeholder="Password">
-            <button type="submit" class="btn">Sign in</button>
-          </form>
-        {% endif %}
-      </div><!--/.nav-collapse -->                                                                                </div>
-  </div>                                                                                                      </div>
+  <div class="navbar navbar-fixed-top" id="page-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            {{ menu_item('home', active) }}
+            {{ menu_item('about', active) }}
+          </ul>
+          {% if name %}
+          <ul class="nav pull-right">
+            <li><a id="logout" href="/logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
+          </ul>
+          {% else %}
+            <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
+              <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> Remember </input></label>
+              <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
+              <input id="passwd" name="passwd" class="span2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+          {% endif %}
+        </div><!--/.nav-collapse -->                                                                                </div>
+    </div>                                                                                                      </div>
 {% endblock %}
 
-{% block layoutcss %}
-<style>
-.show-mobile-nav {
-    height: auto;
-}
-</style>
+{% block layoutbody %}
+  {% block pagebody %}
+  {% endblock %}
+  <hr>
+  <footer>
+    <p>© Company 2013</p>
+  </footer>
 {% endblock %}
 
 {% block layoutscript %}
-<script src="/external/jquery-1.9.1.min.js"></script>
-<script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
-<script src="/external/bootstrap-2.3.1/js/bootstrap-tooltip.js"></script>
-<script>
-$(document).ready(function() {
-{% if email %}
-  $('#passwd').focus();
-{% else %}
-  $('#email').focus();
-{% endif %}
-  $("[rel='tooltip']").tooltip();
-});
-</script>
+  <script src="/external/jquery-1.9.1.min.js"></script>
+  <script src="/external/bootstrap-2.3.1/js/bootstrap.js"></script>
+  <script src="/external/bootstrap-2.3.1/js/bootstrap-tooltip.js"></script>
+  <script>
+  $(document).ready(function() {
+  {% if email %}
+    $('#passwd').focus();
+  {% endif %}
+    $("[rel='tooltip']").tooltip();
+  });
+  </script>
 
-{% block pagescript %}
-{% endblock %}
+  {% block pagescript %}
+  {% endblock %}
 
 {% endblock %}

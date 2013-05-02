@@ -17,17 +17,17 @@
 </div>
 {% endmacro %}
 
-{% block body %}
-
-<div class="hero-unit hidden-phone">
-    <h1>{{NAME}}</h1>
-    {{ home_hero(NAME, name, errmsg) }}
-    </div>
-</div>
-<div class="visible-phone well">
-    <h2>{{NAME}}</h2>
-    {{ home_hero(NAME, name, errmsg) }}
-</div>
+{% block pagebody %}
+  <div class="hero-unit hidden-phone">
+      <h1>{{NAME}}</h1>
+      {{ home_hero(NAME, name, errmsg) }}
+  </div>
+  <div class="visible-phone well">
+      <h2>{{NAME}}</h2>
+      {{ home_hero(NAME, name, errmsg) }}
+  </div>
+  <div style="height: 400px" class="hidden-phone"></div>
+  <div style="height: 100px" class="visible-phone"></div>
 {% endblock %}
 
 {% block pagescript %}
