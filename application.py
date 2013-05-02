@@ -8,7 +8,7 @@ from flask import Flask, render_template as _render_template, redirect,\
 from myapp.config import NAME, DEV, DEBUG, PORT
 from myapp.const import BASE_DIR
 from myapp.util import is_account_exist, register_account, check_login,\
-    account_email_by_aid, get_secret_key
+    account_email_by_nid, get_secret_key
 
 app = Flask(__name__)
 app.secret_key = get_secret_key()
