@@ -8,7 +8,7 @@ from flask import Flask, render_template as _render_template, redirect,\
 from myapp.config import NAME, DEV, DEBUG, PORT
 from myapp.const import BASE_DIR
 from myapp.util import is_account_exist, register_account, check_login,\
-    account_email_by_nid, get_secret_key
+    account_email_by_nid, get_secret_key, redirect_back
 
 app = Flask(__name__)
 app.secret_key = get_secret_key()
@@ -44,10 +44,11 @@ def home():
         else:
             session['email'] = None
 
-        aid = check_login(email, passwd)
-        if aid:
-            session['aid'] = aid;
+        nid = check_login(email, passwd)
+        if nid:
+            session['nid'] = nid;
             name = email
+            return redirect_back('home')
         else:
             errmsg = "Email or password mismatch."
             if not remember:
@@ -55,9 +56,9 @@ def home():
     else:
         email = session.get('email', '')
         remember = session.get('remember', '')
-        aid = session.get('aid', '')
-        if aid:
-            name = account_email_by_aid(aid)
+        nid = session.get('nid', '')
+        if nid:
+            name = account_email_by_nid(nid)
     return render_template('home.html', email=email, errmsg=errmsg, name=name,
             remember=remember)
 
@@ -98,7 +99,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session['aid'] = None
+    session['nid'] = None
     return redirect(url_for('home'))
 
 

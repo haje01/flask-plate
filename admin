@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import aaargh
-from myapp.util import redis, confirm, remove_account_by_nid, remove_account_by_email
+from myapp.util import redis, confirm, remove_account_by_nid,\
+    remove_account_by_email, reset_secret_key
 
 app = aaargh.App(description="myapp admin script")
 
@@ -31,10 +32,17 @@ def allaccounts():
 @app.cmd_arg('-e', '--email', help='delete account by email')
 @app.cmd_arg('-n', '--nid', type=int, help='delete account by nid')
 def delaccount(email, nid):
+    if not email or nid:
+        print 'please specify email or nid'
+        return
     if email:
         remove_account_by_email(email)
     elif nid:
         remove_account_by_nid(email)
+
+@app.cmd(help = 'reset session secret key')
+def resetkey():
+    reset_secret_key()
 
 if __name__ == '__main__':
     app.run()

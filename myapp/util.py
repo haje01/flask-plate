@@ -1,6 +1,9 @@
 import redis
 from myapp.config import NAME, DB_NO
 import os
+from urlparse import urlparse, urljoin
+from flask import request, url_for, redirect
+
 
 FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
 
@@ -30,16 +33,18 @@ def register_account(email, passwd):
 def check_login(email, _passwd):
     nid = redis.hget('account_id_map', email)
     if not nid:
-        return None
+        return
     rd_account_email = 'account:%s:email' % nid
     rd_account_passwd = 'account:%s:passwd' % nid
 
     email = redis.get(rd_account_email)
+    if not email:
+        return
     passwd = redis.get(rd_account_passwd)
     if digest_passwd(email, _passwd) == passwd:
         return nid
     else:
-        return None
+        return
 
 def account_email_by_nid(nid):
     rd_account_email = 'account:%s:email' % nid
@@ -49,6 +54,9 @@ def get_secret_key():
     if not redis.exists('app_secret_key'):
         redis.set('app_secret_key', os.urandom(24))
     return redis.get('app_secret_key')
+
+def reset_secret_key():
+    redis.set('app_secret_key', os.urandom(24))
 
 def confirm(prompt=None, resp=False):
     """prompts for yes or no response from the user. Returns True for yes and
@@ -95,7 +103,28 @@ def remove_account_by_email(email):
 
 def remove_account_by_nid(nid):
     rd_account_email = 'account:%s:email' % nid
+    email = redis.get(rd_account_email)
     rd_account_passwd = 'account:%s:passwd' % nid
     redis.delete(rd_account_email)
     redis.delete(rd_account_passwd)
+    redis.srem('account_emails', email)
+    redis.hdel('account_id_map', email)
 
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
+
+def get_redirect_target():
+    for target in request.values.get('next'), request.referrer:
+        if not target:
+            continue
+        if is_safe_url(target):
+            return target
+
+def redirect_back(endpoint, **values):
+    target = request.form.get('next', '')
+    if not target or not is_safe_url(target):
+        target = url_for(endpoint, **values)
+    return redirect(target)
