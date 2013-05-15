@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-05-15 12:22+0900\n"
+"POT-Creation-Date: 2013-05-15 15:02+0900\n"
 "PO-Revision-Date: 2013-05-14 18:46+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -17,23 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: myapp/util.py:144
+#: application.py:61
+msgid "Email or password mismatch"
+msgstr "계정 정보가 일치하지 않습니다."
+
+#: myapp/util.py:141
 msgid "That email is already exists"
 msgstr "이미 사용중인 메일 주소입니다"
 
-#: templates/home.html:7
+#: templates/home.html:6
 #, python-format
 msgid "Welcome to %(name)s!"
 msgstr "%(name)s에 오신 것을 환영합니다!"
+
+#: templates/home.html:7
+msgid "Please Sign in or <a href=\"/register\">Register</a>."
+msgstr "로그인하시거나 <a href=\"/register\">가입</a>해주세요."
 
 #: templates/home.html:9
 #, python-format
 msgid "Welcome, <b>%(name)s</b>!"
 msgstr "<b>%(name)s</b>님 어서오세요!"
-
-#: templates/home.html:15
-msgid "Please Sign in or <a href=\"/register\">Register</a>."
-msgstr "로그인하시거나 <a href=\"/register\">가입</a>해주세요."
 
 #: templates/layout.html:20
 msgid "home"
@@ -43,27 +47,27 @@ msgstr "홈"
 msgid "about"
 msgstr "정보"
 
-#: templates/layout.html:25
+#: templates/layout.html:26
 msgid "Sign out"
 msgstr "로그아웃"
 
-#: templates/layout.html:29
+#: templates/layout.html:30
 msgid "Remember"
 msgstr "기억하기"
 
-#: templates/layout.html:30
+#: templates/layout.html:32
 msgid "Email"
 msgstr "계정메일"
 
-#: templates/layout.html:31 templates/register.html:44
+#: templates/layout.html:33 templates/register.html:44
 msgid "Password"
 msgstr "암호"
 
-#: templates/layout.html:32
+#: templates/layout.html:34
 msgid "Sign in"
 msgstr "로그인"
 
-#: templates/layout.html:44
+#: templates/layout.html:46
 msgid "Company"
 msgstr "단체명"
 

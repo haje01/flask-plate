@@ -58,7 +58,7 @@ def home():
             name = email
             return redirect_back('home')
         else:
-            errmsg = "Email or password mismatch"
+            errmsg = _("Email or password mismatch")
             if not remember:
                 email = ''
     else:

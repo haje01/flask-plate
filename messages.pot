@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-05-15 12:22+0900\n"
+"POT-Creation-Date: 2013-05-15 15:02+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: myapp/util.py:144
+#: application.py:61
+msgid "Email or password mismatch"
+msgstr ""
+
+#: myapp/util.py:141
 msgid "That email is already exists"
 msgstr ""
 
-#: templates/home.html:7
+#: templates/home.html:6
 #, python-format
 msgid "Welcome to %(name)s!"
+msgstr ""
+
+#: templates/home.html:7
+msgid "Please Sign in or <a href=\"/register\">Register</a>."
 msgstr ""
 
 #: templates/home.html:9
 #, python-format
 msgid "Welcome, <b>%(name)s</b>!"
-msgstr ""
-
-#: templates/home.html:15
-msgid "Please Sign in or <a href=\"/register\">Register</a>."
 msgstr ""
 
 #: templates/layout.html:20
@@ -43,27 +47,27 @@ msgstr ""
 msgid "about"
 msgstr ""
 
-#: templates/layout.html:25
+#: templates/layout.html:26
 msgid "Sign out"
 msgstr ""
 
-#: templates/layout.html:29
+#: templates/layout.html:30
 msgid "Remember"
 msgstr ""
 
-#: templates/layout.html:30
+#: templates/layout.html:32
 msgid "Email"
 msgstr ""
 
-#: templates/layout.html:31 templates/register.html:44
+#: templates/layout.html:33 templates/register.html:44
 msgid "Password"
 msgstr ""
 
-#: templates/layout.html:32
+#: templates/layout.html:34
 msgid "Sign in"
 msgstr ""
 
-#: templates/layout.html:44
+#: templates/layout.html:46
 msgid "Company"
 msgstr ""
 
