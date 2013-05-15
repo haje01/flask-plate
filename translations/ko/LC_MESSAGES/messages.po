@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-05-15 15:02+0900\n"
+"POT-Creation-Date: 2013-05-15 15:07+0900\n"
 "PO-Revision-Date: 2013-05-14 18:46+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr "기억하기"
 
 #: templates/layout.html:32
 msgid "Email"
-msgstr "계정메일"
+msgstr "메일"
 
 #: templates/layout.html:33 templates/register.html:44
 msgid "Password"
@@ -77,7 +77,7 @@ msgstr "가입"
 
 #: templates/register.html:42
 msgid "Email address"
-msgstr "계정메일 주소"
+msgstr "메일 주소"
 
 #: templates/register.html:46
 msgid "Confirm password"

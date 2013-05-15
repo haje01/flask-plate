@@ -32,6 +32,7 @@ def render_template(fname, *args, **kwargs):
     kwargs['NAME'] = NAME
     kwargs['DEBUG'] = DEBUG
     kwargs['DEV'] = DEV
+    kwargs['LANG'] = LANG
     return _render_template(fname, *args, **kwargs)
 
 @app.route('/')
@@ -46,21 +47,7 @@ def home():
         email = request.form.get('email', '')
         passwd = request.form.get('passwd', '')
         remember = request.form.get('remember', '')
-        session['remember'] = remember
-        if remember:
-            session['email'] = email
-        else:
-            session['email'] = None
-
-        nid = check_login(email, passwd)
-        if nid:
-            session['nid'] = nid;
-            name = email
-            return redirect_back('home')
-        else:
-            errmsg = _("Email or password mismatch")
-            if not remember:
-                email = ''
+        email, name, errmsg = login(session, email, passwd, remember)
     else:
         email = session.get('email', '')
         remember = session.get('remember', '')
@@ -70,6 +57,23 @@ def home():
     return render_template('home.html', email=email, errmsg=errmsg, name=name,
             remember=remember)
 
+def login(session, email, passwd, remember):
+    name = ''
+    errmsg = ''
+    session['remember'] = remember
+    if remember:
+        session['email'] = email
+    else:
+        session['email'] = None
+    nid = check_login(email, passwd)
+    if nid:
+        session['nid'] = nid;
+        name = email
+    else:
+        errmsg = _("Email or password mismatch")
+        if not remember:
+            email = ''
+    return email, name, errmsg
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -86,8 +90,7 @@ def register():
             remember = fields.get('remember')
             passwd = fields.get('passwd')
             register_account(email, passwd)
-            if remember:
-                session['email'] = email
+            login(session, email, passwd, remember)
         return redirect(url_for('home'))
 
 @app.route('/logout')
