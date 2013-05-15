@@ -2,7 +2,7 @@
 
 {% macro menu_item(name, active) %}
 <li {% if name == active %}class="active"{% endif %}><a
-    href="/{{name}}">{{name|title}}</a></li>
+    href="/{{name}}">{{_(name)|title}}</a></li>
 {% endmacro %}
 
 {% block navbar %}
@@ -17,8 +17,8 @@
         <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            {{ menu_item( gettext('home') , active) }}
-            {{ menu_item( gettext('about'), active) }}
+            {{ menu_item('home' , active) }}
+            {{ menu_item('about', active) }}
           </ul>
           {% if name %}
           <ul class="nav pull-right">
