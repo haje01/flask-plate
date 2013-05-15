@@ -1,0 +1,2 @@
+pybabel compile -d translations .
+
