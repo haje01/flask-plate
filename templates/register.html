@@ -35,32 +35,32 @@
 </style>
 {% endblock %}
 
-{% block body %}
+{% block layoutbody %}
 <form class="form-signup" method="post" action="">
-<h2 class="form-signin-heading">Register</h2>
+  <h2 class="form-signin-heading">{{_('Register')}}</h2>
   <div class="text-error"></div>
-  <input id="email" name="email" type="text" class="input-block-level" placeholder="Email address" value="{{email}}">
+  <input id="email" name="email" type="text" class="input-block-level" placeholder="{{_('Email address')}}">
   <div class="text-error"></div>
-  <input id="passwd" name="passwd" type="password" class="input-block-level" placeholder="Password" value="{{passwd}}">
+  <input id="passwd" name="passwd" type="password" class="input-block-level" placeholder="{{_('Password')}}">
   <div class="text-error"></div>
-  <input id="passwd2" name="passwd2" type="password" class="input-block-level" placeholder="Confirm password" value="{{passwd2}}">
+  <input id="passwd2" name="passwd2" type="password" class="input-block-level" placeholder="{{_('Confirm password')}}">
   <label class="checkbox">
-    <input id="remember" name="remember" type="checkbox" {%if remember%}checked{%endif%}> Remember me </input>
+    <input id="remember" name="remember" type="checkbox" {%if remember%}checked{%endif%}> {{_('Remember me')}} </input>
   </label>
-  <button class="btn btn-large btn-primary" type="submit">Register</button>
+  <button class="btn btn-large btn-primary" type="submit">{{_('Register')}}</button>
 </form>
 {% endblock %}
 
 {% block layoutscript %}
 <script src="/external/jquery-1.9.1.min.js"></script>
 <script>
-{% if errmsg %}
 $(document).ready(function() {
-  $('#{{errid}}').focus().addClass('error').prev().html('<div>{{errmsg}}</div>');
+  if ($(".error")[0]) {
+    $('.error:first').focus();
+  } else {
+    $('#email').focus();
+  }
 });
-{% else %}
-  $('#email').focus();
-{% endif %}
 </script>
 
 {% endblock %}

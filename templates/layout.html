@@ -17,19 +17,21 @@
         <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            {{ menu_item('home', active) }}
-            {{ menu_item('about', active) }}
+            {{ menu_item( gettext('home') , active) }}
+            {{ menu_item( gettext('about'), active) }}
           </ul>
           {% if name %}
           <ul class="nav pull-right">
-            <li><a id="logout" href="/logout" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="Logout">{{name}}</a></li>
+            <li><a href="#">{{name}}</a></li>
+            <li><button onclick="logout()" class="btn">{{ gettext('Sign out') }}</button></li>
           </ul>
           {% else %}
             <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
-              <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> Remember </input></label>
-              <input id="email" name="email" class="span2" type="text" placeholder="Email" {%if email%}value="{{email}}"{%endif%}>
-              <input id="passwd" name="passwd" class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
+              <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> {{ gettext('Remember')}} </input></label>
+              <span class="help-inline error-message">{{errmsg}}</span>
+              <input id="email" name="email" class="span2" type="text" placeholder="{{ gettext('Email') }}" {%if email%}value="{{email}}"{%endif%}>
+              <input id="passwd" name="passwd" class="span2" type="password" placeholder="{{ gettext('Password') }}">
+              <button type="submit" class="btn">{{ gettext('Sign in') }}</button>
             </form>
           {% endif %}
         </div><!--/.nav-collapse -->                                                                                </div>
@@ -41,7 +43,7 @@
   {% endblock %}
   <hr>
   <footer>
-    <p>© Company 2013</p>
+  <p>© {{ gettext('Company') }} 2013</p>
   </footer>
 {% endblock %}
 
@@ -56,6 +58,10 @@
   {% endif %}
     $("[rel='tooltip']").tooltip();
   });
+
+  function logout() {
+    window.location = "/logout";
+  }
   </script>
 
   {% block pagescript %}

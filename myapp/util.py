@@ -3,11 +3,16 @@ from myapp.config import NAME, DB_NO
 import os
 from urlparse import urlparse, urljoin
 from flask import request, url_for, redirect
+from flaskext.babel import gettext
+import formencode
+from formencode import validators
+from myapp.config import NAME
 
 
 FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
 
 redis = redis.Redis(db = DB_NO)
+_ = gettext
 
 def is_account_exist(email):
     rd_account_email = 'account_emails'
@@ -128,3 +133,29 @@ def redirect_back(endpoint, **values):
     if not target or not is_safe_url(target):
         target = url_for(endpoint, **values)
     return redirect(target)
+
+class UniqueEmail(formencode.FancyValidator):
+    def _convert_to_python(self, value, state):
+        validators.Email().to_python(value)
+        if is_account_exist(value):
+            raise formencode.Invalid(_('That email is already exists'), value,
+                    state)
+        return value
+
+class RegisterSchema(formencode.Schema):
+    email = UniqueEmail()
+    passwd = validators.String(not_empty = True)
+    passwd2 = validators.String(not_empty = True)
+    remember = validators.Bool()
+    chained_validators = [validators.FieldsMatch('passwd', 'passwd2')]
+
+def validate_register(fields):
+    errors = None
+    try:
+        fields = RegisterSchema.to_python(fields)
+    except validators.Invalid, e:
+        errors = dict((k, v) for k, v in
+            e.unpack_errors().iteritems())
+    return fields, errors
+
+

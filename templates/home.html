@@ -2,17 +2,11 @@
 
 {% macro home_hero(NAME, name, errmsg) %}
 <div style="margin-top: 30px">
-  {% if not errmsg %}
-    {% if not name %}
-      <p>Welcome to {{NAME}}!</p>
-    {% else %}
-    <p>Welcome, <b>{{name}}</b>!</p>
-    {% endif %}
-  {% else %}
-    <div class="text-error">{{errmsg}}</div>
-  {% endif %}
   {% if not name %}
-    <p>Please Sign in or <a href="/register">Register</a>.</p>
+  <p>{{gettext('Welcome to %(name)s!', name=NAME) }}</p>
+  <p>{{ gettext('Please Sign in or <a href="/register">Register</a>.') }}</p>
+  {% else %}
+  <p>{{gettext('Welcome, <b>%(name)s</b>!', name=name)}}</p>
   {% endif %}
 </div>
 {% endmacro %}

@@ -1,5 +1,5 @@
 flask==0.9
 redis==2.7.2
-validate_email==1.1
 aaargh==0.4
-
+formencode==1.3.0
+Flask-Babel==0.8

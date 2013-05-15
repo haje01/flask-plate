@@ -1,7 +1,7 @@
 flask-plate
 ===========
 
-Poor boilerplate for using flask, bootstrap &amp; redis.
+This is yet another boiler plate for flask, with bootstrap, redis &amp; formencode.
 
 ### Get Started
 
