@@ -1,22 +1,25 @@
 #!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
 
-import aaargh
+import argh
+from argh import arg
 from myapp.util import redis, confirm, remove_account_by_nid,\
     remove_account_by_email, reset_secret_key
 
-app = aaargh.App(description="myapp admin script")
+class ChoicesCompleter(object):
+    def __init__(self, choices=[]):
+        self.choices = choices
+    def __call__(self, prefix, **kwargs):
+        return (c for c in self.choices if c.startswith(prefix))
 
-# Application level arguments
-
-
-@app.cmd(help = 'flush DB!')
 def flushdb():
+    "Flush DB!"
     if confirm('All data will be deleted. Are you sure?', resp=False):
         redis.flushdb()
         print "Your DB has been flushed."
 
-@app.cmd(help = "show all accounts")
-def allaccounts():
+def get_allaccounts():
+    emails = []
     account_cnt = redis.get('account_cnt')
     if account_cnt:
         account_cnt = int(account_cnt)
@@ -24,14 +27,24 @@ def allaccounts():
             rd_account_email = 'account:%s:email' % nid
             email = redis.get(rd_account_email)
             if email:
-                print email
-    else:
-        print "no accounts."
+                emails.append(email)
+    return emails
 
-@app.cmd(help = 'delete a account')
-@app.cmd_arg('-e', '--email', help='delete account by email')
-@app.cmd_arg('-n', '--nid', type=int, help='delete account by nid')
+def allaccounts():
+    "Show all accounts"
+    for a in get_allaccounts():
+        print a
+
+def email_completer(prefix, **kwargs):
+    accounts = get_allaccounts()
+    if len(prefix) > 0:
+        return [a for a in accounts if a.startswith(prefix)]
+    return accounts
+
+@arg('-e', '--email', help='delete account by email', completer=email_completer)
+@arg('-n', '--nid', type=int, help='delete account by nid')
 def delaccount(email, nid):
+    "Delete a account"
     if not email or nid:
         print 'please specify email or nid'
         return
@@ -40,10 +53,10 @@ def delaccount(email, nid):
     elif nid:
         remove_account_by_nid(email)
 
-@app.cmd(help = 'reset session secret key')
 def resetkey():
+    "Reset session secret key"
     reset_secret_key()
 
 if __name__ == '__main__':
-    app.run()
+    argh.dispatch_commands([flushdb, allaccounts, delaccount, resetkey])
 
