@@ -5,7 +5,7 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 
 ### Get Started
 
-1. Install Redis & run server
+1. Install Redis & Run server
     
     http://redis.io
 
@@ -33,8 +33,6 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
         ./myapp.uwsgi.xml
         ./myapp  (change folder name)
     </pre>
-
-1. Check 
 
 1. Run application, then test 'localhost:8000' with you browser.
     <pre>python application.py</pre>
