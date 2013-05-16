@@ -12,7 +12,8 @@ from formencode import htmlfill
 from myapp.config import NAME, DEV, DEBUG, PORT, LANG
 from myapp.const import BASE_DIR
 from myapp.util import is_account_exist, register_account, check_login,\
-    account_email_by_nid, get_secret_key, redirect_back, validate_register, _
+    account_email_by_nid, get_secret_key, redirect_back, validate_register, _,\
+    get_redirect_target, auth_required
 
 
 app = Flask(__name__)
@@ -33,6 +34,7 @@ def render_template(fname, *args, **kwargs):
     kwargs['DEBUG'] = DEBUG
     kwargs['DEV'] = DEV
     kwargs['LANG'] = LANG
+    kwargs['name'] = session.get('name', '')
     return _render_template(fname, *args, **kwargs)
 
 @app.route('/')
@@ -41,24 +43,26 @@ def index():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    name = ''
     errmsg = ''
+    next = get_redirect_target()
     if request.method == 'POST':
         email = request.form.get('email', '')
         passwd = request.form.get('passwd', '')
         remember = request.form.get('remember', '')
-        email, name, errmsg = login(session, email, passwd, remember)
+        email, errmsg = login(session, email, passwd, remember)
+        if not errmsg:
+            return redirect_back('home')
     else:
         email = session.get('email', '')
         remember = session.get('remember', '')
-        nid = session.get('nid', '')
-        if nid:
-            name = account_email_by_nid(nid)
-    return render_template('home.html', email=email, errmsg=errmsg, name=name,
-            remember=remember)
+        if remember:
+            nid = session.get('nid', '')
+            if nid:
+                email = account_email_by_nid(nid)
+    return render_template('home.html', email=email, errmsg=errmsg,
+            remember=remember, next=next)
 
 def login(session, email, passwd, remember):
-    name = ''
     errmsg = ''
     session['remember'] = remember
     if remember:
@@ -68,12 +72,15 @@ def login(session, email, passwd, remember):
     nid = check_login(email, passwd)
     if nid:
         session['nid'] = nid;
-        name = email
+        session['name'] = email
     else:
         errmsg = _("Email or password mismatch")
-        if not remember:
-            email = ''
-    return email, name, errmsg
+    return email, errmsg
+
+@app.route('/about')
+@auth_required
+def about():
+    return render_template('about.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -95,6 +102,7 @@ def register():
 
 @app.route('/logout')
 def logout():
+    session['name'] = None
     session['nid'] = None
     return redirect(url_for('home'))
 

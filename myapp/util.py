@@ -2,11 +2,12 @@ import redis
 from myapp.config import NAME, DB_NO
 import os
 from urlparse import urlparse, urljoin
-from flask import request, url_for, redirect
+from flask import request, url_for, redirect, session
 from flaskext.babel import gettext
 import formencode
 from formencode import validators
 from myapp.config import NAME
+from functools import wraps
 
 
 FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
@@ -121,8 +122,11 @@ def is_safe_url(target):
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
 
-def get_redirect_target():
-    for target in request.values.get('next'), request.referrer:
+def get_redirect_target(referrer = False):
+    targets = [request.values.get('next')]
+    if referrer: # need when using login page
+        targets.append(request.referrer)
+    for target in targets:
         if not target:
             continue
         if is_safe_url(target):
@@ -158,4 +162,12 @@ def validate_register(fields):
             e.unpack_errors().iteritems())
     return fields, errors
 
-
+def auth_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        name = session.get('name', '')
+        if not name:
+            return redirect(url_for('home', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+ 

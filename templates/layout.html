@@ -2,7 +2,7 @@
 
 {% macro menu_item(name, active) %}
 <li {% if name == active %}class="active"{% endif %}><a
-    href="/{{name}}">{{name|title}}</a></li>
+    href="/{{name}}">{{_(name)|title}}</a></li>
 {% endmacro %}
 
 {% block navbar %}
@@ -17,21 +17,24 @@
         <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            {{ menu_item( gettext('home') , active) }}
-            {{ menu_item( gettext('about'), active) }}
+            {{ menu_item( 'home' , active) }}
+            {{ menu_item( 'about', active) }}
           </ul>
           {% if name %}
           <ul class="nav pull-right">
             <li><a href="#">{{name}}</a></li>
-            <li><button onclick="logout()" class="btn">{{ gettext('Sign out') }}</button></li>
+            <li><button onclick="logout()" class="btn">{{ _('Sign out') }}</button></li>
           </ul>
           {% else %}
             <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
-              <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> {{ gettext('Remember')}} </input></label>
+              <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> {{ _('Remember')}} </input></label>
               <span class="help-inline error-message">{{errmsg}}</span>
-              <input id="email" name="email" class="span2" type="text" placeholder="{{ gettext('Email') }}" {%if email%}value="{{email}}"{%endif%}>
-              <input id="passwd" name="passwd" class="span2" type="password" placeholder="{{ gettext('Password') }}">
-              <button type="submit" class="btn">{{ gettext('Sign in') }}</button>
+              <input id="email" name="email" class="span2" type="text" placeholder="{{ _('Email') }}" {%if email%}value="{{email}}"{%endif%}>
+              <input id="passwd" name="passwd" class="span2" type="password" placeholder="{{ _('Password') }}">
+              <button type="submit" class="btn">{{ _('Sign in') }}</button>
+              {% if next %}
+              <input type="hidden" value="{{next}}" name="next">
+              {% endif %}
             </form>
           {% endif %}
         </div><!--/.nav-collapse -->                                                                                </div>
@@ -43,7 +46,7 @@
   {% endblock %}
   <hr>
   <footer>
-  <p>© {{ gettext('Company') }} 2013</p>
+  <p>© {{ _('Company') }} 2013</p>
   </footer>
 {% endblock %}
 
@@ -55,6 +58,8 @@
   $(document).ready(function() {
   {% if email %}
     $('#passwd').focus();
+  {% else %}
+    $('#email').focus();
   {% endif %}
     $("[rel='tooltip']").tooltip();
   });
