@@ -5,18 +5,24 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 
 ### Get Started
 
-1. Clone from Github.
+1. Install Redis & run server
+    
+    http://redis.io
+
+1. Install latest formencode from Github
+    <pre>
+    git clone git://github.com/formencode/formencode.git
+    cd formencode
+    python setup.py install
+    </pre>
+
+1. Clone flask-plate from Github.
     <pre>git clone https://github.com/haje01/flask-plate.git</pre>
 
 1. Rename 'flask-plate' folder as your project name, and cd into it.
 
-1. Install required python modules.
+1. Install required python modules. ( Make virtual environment beforehand, if you want to )
     <pre>pip install -r requirements.txt</pre>
-
-1. Install latest formencode from Github
-    <pre>git clone git://github.com/formencode/formencode.git</pre>
-    cd formencode
-    <pre>python setup.py install</pre>
 
 1. Find 'myapp's in the following files and change it into your own app's name.
     <pre>
@@ -27,6 +33,8 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
         ./myapp.uwsgi.xml
         ./myapp  (change folder name)
     </pre>
+
+1. Check 
 
 1. Run application, then test 'localhost:8000' with you browser.
     <pre>python application.py</pre>
