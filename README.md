@@ -34,7 +34,7 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
         ./myapp  (change folder name)
     </pre>
 
-1. Run application, then test 'localhost:8000' with you browser.
+1. Run application, then test 'http://localhost:8000' with you browser.
     <pre>python application.py</pre>
 
 1. If everything goes well, remove .git folder and init new repository for your project.
@@ -47,9 +47,9 @@ In order to activate admin script's tab completion:
 
 1. If you are using MacOSX, upgrade to bash 4.2 & install bash-completion.
 
-    http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
-
     http://techscienceinterest.blogspot.kr/2010/05/change-to-new-bash-shell-41-for-mac-os.html
+
+    http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
 
 1. After argcomplete installed by requirements.txt, activate it globally.
 
