@@ -13,6 +13,11 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 1. Install required python modules.
     <pre>pip install -r requirements.txt</pre>
 
+1. Install latest formencode from Github
+    <pre>git clone git://github.com/formencode/formencode.git</pre>
+    cd formencode
+    <pre>python setup.py install</pre>
+
 1. Find 'myapp's in the following files and change it into your own app's name.
     <pre>
         ./admin
@@ -29,4 +34,18 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 1. If everything goes well, remove .git folder and init new repository for your project.
 
 1. Edit as your own!
+
+### Tips
+
+In order to activate admin script's tab completion:
+
+1. If you are using MacOSX, upgrade to bash 4.2 & install bash-completion.
+
+    http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
+
+    http://techscienceinterest.blogspot.kr/2010/05/change-to-new-bash-shell-41-for-mac-os.html
+
+1. After argcomplete installed by requirements.txt, activate it globally.
+
+    https://pypi.python.org/pypi/argcomplete#global-completion
 
