@@ -136,7 +136,7 @@ def redirect_back(endpoint, **values):
 
 class UniqueEmail(formencode.FancyValidator):
     def _convert_to_python(self, value, state):
-        validators.Email().to_python(value)
+        print validators.Email().to_python(value)
         if is_account_exist(value):
             raise formencode.Invalid(_('That email is already exists'), value,
                     state)

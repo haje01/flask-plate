@@ -13,6 +13,11 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 1. Install required python modules.
     <pre>pip install -r requirements.txt</pre>
 
+1. Install latest formencode from Github
+    <pre>git clone git://github.com/formencode/formencode.git</pre>
+    cd formencode
+    <pre>python setup.py install</pre>
+
 1. Find 'myapp's in the following files and change it into your own app's name.
     <pre>
         ./admin
