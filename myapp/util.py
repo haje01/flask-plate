@@ -165,7 +165,7 @@ def validate_register(fields):
 def auth_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        name = session.get('name', '')
+        name = session.get('aname', '')
         if not name:
             return redirect(url_for('home', next=request.url))
         return f(*args, **kwargs)

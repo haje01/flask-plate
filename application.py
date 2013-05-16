@@ -8,7 +8,7 @@ from flask import Flask, render_template as _render_template, redirect,\
 from flaskext.babel import Babel
 import formencode
 from formencode import htmlfill
-
+from datetime import timedelta
 from myapp.config import NAME, DEV, DEBUG, PORT, LANG
 from myapp.const import BASE_DIR
 from myapp.util import is_account_exist, register_account, check_login,\
@@ -18,6 +18,7 @@ from myapp.util import is_account_exist, register_account, check_login,\
 
 app = Flask(__name__)
 app.secret_key = get_secret_key()
+app.permanent_session_lifetie = timedelta(days=1)
 app.config['BABEL_DEFAULT_LOCALE'] = LANG
 babel = Babel(app)
 formencode.api.set_stdtranslation(domain="FormEncode", languages=[LANG])
@@ -34,7 +35,8 @@ def render_template(fname, *args, **kwargs):
     kwargs['DEBUG'] = DEBUG
     kwargs['DEV'] = DEV
     kwargs['LANG'] = LANG
-    kwargs['name'] = session.get('name', '')
+    kwargs['active'] = fname.split('.')[0]
+    kwargs['aname'] = session.get('aname', '')
     return _render_template(fname, *args, **kwargs)
 
 @app.route('/')
@@ -72,7 +74,7 @@ def login(session, email, passwd, remember):
     nid = check_login(email, passwd)
     if nid:
         session['nid'] = nid;
-        session['name'] = email
+        session['aname'] = email
     else:
         errmsg = _("Email or password mismatch")
     return email, errmsg
@@ -102,7 +104,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session['name'] = None
+    session['aname'] = None
     session['nid'] = None
     return redirect(url_for('home'))
 

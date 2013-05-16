@@ -14,15 +14,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="brand" href="/">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
+        <a class="brand" href="/home">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            {{ menu_item('home' , active) }}
             {{ menu_item('about', active) }}
+            {% if aname %}
+            {% endif %}
           </ul>
-          {% if name %}
+          {% if aname %}
           <ul class="nav pull-right">
-            <li><a href="#">{{name}}</a></li>
+            <li><a href="#">{{aname}}</a></li>
             <li><button onclick="logout()" class="btn">{{ _('Sign out') }}</button></li>
           </ul>
           {% else %}
