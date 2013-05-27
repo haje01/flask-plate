@@ -38,11 +38,9 @@
 {% block layoutbody %}
 <form class="form-signup" method="post" action="">
   <h2 class="form-signin-heading">{{_('Register')}}</h2>
-  <div class="text-error"></div>
+  <input id="id" name="id" type="text" class="input-block-level" placeholder="{{_('ID')}}">
   <input id="email" name="email" type="text" class="input-block-level" placeholder="{{_('Email address')}}">
-  <div class="text-error"></div>
   <input id="passwd" name="passwd" type="password" class="input-block-level" placeholder="{{_('Password')}}">
-  <div class="text-error"></div>
   <input id="passwd2" name="passwd2" type="password" class="input-block-level" placeholder="{{_('Confirm password')}}">
   <label class="checkbox">
     <input id="remember" name="remember" type="checkbox" {%if remember%}checked{%endif%}> {{_('Remember me')}} </input>
@@ -58,7 +56,7 @@ $(document).ready(function() {
   if ($(".error")[0]) {
     $('.error:first').focus();
   } else {
-    $('#email').focus();
+    $('#id').focus();
   }
 });
 </script>

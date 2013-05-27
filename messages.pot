@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-05-15 15:07+0900\n"
+"POT-Creation-Date: 2013-05-27 17:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: application.py:61
-msgid "Email or password mismatch"
+#: application.py:78
+msgid "ID or password mismatch"
 msgstr ""
 
 #: myapp/util.py:141
-msgid "That email is already exists"
+msgid "That ID is already exists"
+msgstr ""
+
+#: templates/404.html:7 templates/404.html:16
+msgid "Page Not Found"
+msgstr ""
+
+#: templates/404.html:10 templates/404.html:19
+msgid "What you are looking for is just not there."
+msgstr ""
+
+#: templates/404.html:12 templates/404.html:21
+msgid "Take Me Home"
 msgstr ""
 
 #: templates/home.html:6
@@ -39,39 +51,31 @@ msgstr ""
 msgid "Welcome, <b>%(name)s</b>!"
 msgstr ""
 
-#: templates/layout.html:20
-msgid "home"
-msgstr ""
-
-#: templates/layout.html:21
-msgid "about"
-msgstr ""
-
-#: templates/layout.html:26
+#: templates/layout.html:27
 msgid "Sign out"
 msgstr ""
 
-#: templates/layout.html:30
+#: templates/layout.html:31
 msgid "Remember"
 msgstr ""
 
-#: templates/layout.html:32
-msgid "Email"
+#: templates/layout.html:33 templates/register.html:41
+msgid "ID"
 msgstr ""
 
-#: templates/layout.html:33 templates/register.html:44
+#: templates/layout.html:34 templates/register.html:43
 msgid "Password"
 msgstr ""
 
-#: templates/layout.html:34
+#: templates/layout.html:35
 msgid "Sign in"
 msgstr ""
 
-#: templates/layout.html:46
+#: templates/layout.html:50
 msgid "Company"
 msgstr ""
 
-#: templates/register.html:40 templates/register.html:50
+#: templates/register.html:40 templates/register.html:48
 msgid "Register"
 msgstr ""
 
@@ -79,11 +83,11 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: templates/register.html:46
+#: templates/register.html:44
 msgid "Confirm password"
 msgstr ""
 
-#: templates/register.html:48
+#: templates/register.html:46
 msgid "Remember me"
 msgstr ""
 

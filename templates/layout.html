@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="brand" href="/home">{{NAME}}{% if DEV %} [Dev]{% endif %}</a>
-        <div class="nav-collapse collapse">
+        <div class="nav-collapse collapse no-transition">
           <ul class="nav">
             {{ menu_item('about', active) }}
             {% if aname %}
@@ -30,7 +30,7 @@
             <form id="loginForm" class="navbar-form form-inline pull-right" method="post" action="/home">
               <label class="checkbox"><input id="remember" name="remember" type="checkbox" class="checkbox" {%if remember%}checked{%endif%}> {{ _('Remember')}} </input></label>
               <span class="help-inline error-message">{{errmsg}}</span>
-              <input id="email" name="email" class="span2" type="text" placeholder="{{ _('Email') }}" {%if email%}value="{{email}}"{%endif%}>
+              <input id="id" name="id" class="span2" type="text" placeholder="{{ _('ID') }}" {%if _id%}value="{{_id}}"{%endif%}>
               <input id="passwd" name="passwd" class="span2" type="password" placeholder="{{ _('Password') }}">
               <button type="submit" class="btn">{{ _('Sign in') }}</button>
               {% if next %}
@@ -57,10 +57,10 @@
   <script src="/external/bootstrap-2.3.1/js/bootstrap-tooltip.js"></script>
   <script>
   $(document).ready(function() {
-  {% if email %}
+  {% if _id %}
     $('#passwd').focus();
   {% else %}
-    $('#email').focus();
+    $('#id').focus();
   {% endif %}
     $("[rel='tooltip']").tooltip();
   });

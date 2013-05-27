@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-05-15 15:07+0900\n"
+"POT-Creation-Date: 2013-05-27 17:16+0900\n"
 "PO-Revision-Date: 2013-05-14 18:46+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -17,13 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: application.py:61
-msgid "Email or password mismatch"
+#: application.py:78
+msgid "ID or password mismatch"
 msgstr "계정 정보가 일치하지 않습니다."
 
 #: myapp/util.py:141
-msgid "That email is already exists"
-msgstr "이미 사용중인 메일 주소입니다"
+msgid "That ID is already exists"
+msgstr "이미 사용중인 아이디입니다"
+
+#: templates/404.html:7 templates/404.html:16
+msgid "Page Not Found"
+msgstr "페이지가 없습니다."
+
+#: templates/404.html:10 templates/404.html:19
+msgid "What you are looking for is just not there."
+msgstr "찾으시는 정보가 존재하지 않습니다."
+
+#: templates/404.html:12 templates/404.html:21
+msgid "Take Me Home"
+msgstr "시작 화면으로"
 
 #: templates/home.html:6
 #, python-format
@@ -39,39 +51,31 @@ msgstr "로그인하시거나 <a href=\"/register\">가입</a>해주세요."
 msgid "Welcome, <b>%(name)s</b>!"
 msgstr "<b>%(name)s</b>님 어서오세요!"
 
-#: templates/layout.html:20
-msgid "home"
-msgstr "홈"
-
-#: templates/layout.html:21
-msgid "about"
-msgstr "정보"
-
-#: templates/layout.html:26
+#: templates/layout.html:27
 msgid "Sign out"
 msgstr "로그아웃"
 
-#: templates/layout.html:30
+#: templates/layout.html:31
 msgid "Remember"
 msgstr "기억하기"
 
-#: templates/layout.html:32
-msgid "Email"
-msgstr "메일"
+#: templates/layout.html:33 templates/register.html:41
+msgid "ID"
+msgstr "아이디"
 
-#: templates/layout.html:33 templates/register.html:44
+#: templates/layout.html:34 templates/register.html:43
 msgid "Password"
 msgstr "암호"
 
-#: templates/layout.html:34
+#: templates/layout.html:35
 msgid "Sign in"
 msgstr "로그인"
 
-#: templates/layout.html:46
+#: templates/layout.html:50
 msgid "Company"
 msgstr "단체명"
 
-#: templates/register.html:40 templates/register.html:50
+#: templates/register.html:40 templates/register.html:48
 msgid "Register"
 msgstr "가입"
 
@@ -79,11 +83,11 @@ msgstr "가입"
 msgid "Email address"
 msgstr "메일 주소"
 
-#: templates/register.html:46
+#: templates/register.html:44
 msgid "Confirm password"
 msgstr "암호 확인"
 
-#: templates/register.html:48
+#: templates/register.html:46
 msgid "Remember me"
 msgstr "기억하기"
 

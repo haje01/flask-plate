@@ -1,0 +1,26 @@
+{% extends 'barebone.html' %}
+
+{% block layoutbody %}
+<div class="row pagination-centered">
+  <div class="offset3 span7">
+    <div class="hero-unit hidden-phone">
+      <h1>{{_("Page Not Found")}}</h1>
+      <p style="color: red">Error 404</p>
+      <div style="margin-top: 30px">
+        <p>{{_("What you are looking for is just not there.")}}</p>
+        <br/>
+        <p><a href="{{url_for('home')}}" class="btn btn-large btn-primary"><i class="icon-home icon-white"></i>{{_("Take Me Home")}}</a></p>
+      </div>
+    </div>
+    <div class="visible-phone well" style="margin-top: 25px">
+      <h2>{{_("Page Not Found")}}</h2>
+      <p style="color: red">Error 404</p>
+      <div style="margin-top: 30px">
+        <p>{{_("What you are looking for is just not there.")}}</p>
+        <br/>
+        <p><a href="{{url_for('home')}}" class="btn btn-large btn-primary"><i class="icon-home icon-white"></i>{{_("Take Me Home")}}</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

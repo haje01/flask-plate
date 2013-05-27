@@ -15,46 +15,42 @@ FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
 redis = redis.Redis(db = DB_NO)
 _ = gettext
 
-def is_account_exist(email):
-    rd_account_email = 'account_emails'
-    return redis.sismember(rd_account_email, email)
+def is_account_exist(_id):
+    rd_account_ids = 'account_ids'
+    return redis.sismember(rd_account_ids, _id)
 
 def digest_passwd(email, passwd):
     import hashlib
     salt = email + FIXEDSALT
     return hashlib.sha512(passwd + salt).hexdigest()
 
-def register_account(email, passwd):
+def register_account(_id, email, passwd):
     nid = redis.incr('account_cnt')
+    rd_account_id = 'account:%s:id' % nid
     rd_account_email = 'account:%s:email' % nid
     rd_account_passwd = 'account:%s:passwd' % nid
 
+    redis.set(rd_account_id, _id)
     redis.set(rd_account_email, email)
-    salt = email + FIXEDSALT
-    redis.set(rd_account_email, email)
-    redis.set(rd_account_passwd, digest_passwd(email, passwd))
-    redis.sadd('account_emails', email)
-    redis.hset('account_id_map', email, nid)
+    redis.set(rd_account_passwd, digest_passwd(_id, passwd))
+    redis.sadd('account_ids', _id)
+    redis.hset('account_id_map', _id, nid)
 
-def check_login(email, _passwd):
-    nid = redis.hget('account_id_map', email)
+def check_login(_id, _passwd):
+    nid = redis.hget('account_id_map', _id)
     if not nid:
         return
-    rd_account_email = 'account:%s:email' % nid
+    rd_account_id = 'account:%s:id' % nid
     rd_account_passwd = 'account:%s:passwd' % nid
-
-    email = redis.get(rd_account_email)
-    if not email:
-        return
     passwd = redis.get(rd_account_passwd)
-    if digest_passwd(email, _passwd) == passwd:
+    if digest_passwd(_id, _passwd) == passwd:
         return nid
     else:
         return
 
-def account_email_by_nid(nid):
-    rd_account_email = 'account:%s:email' % nid
-    return redis.get(rd_account_email)
+def account_id_by_nid(nid):
+    rd_account_id = 'account:%s:email' % nid
+    return redis.get(rd_account_id)
 
 def get_secret_key():
     if not redis.exists('app_secret_key'):
@@ -103,18 +99,19 @@ def confirm(prompt=None, resp=False):
         if ans == 'n' or ans == 'N':
             return False
 
-def remove_account_by_email(email):
-    nid = redis.hget('account_id_map', email)
+def remove_account_by_id(_id):
+    nid = redis.hget('account_id_map', _id)
     return remove_account_by_nid(nid)
 
 def remove_account_by_nid(nid):
-    rd_account_email = 'account:%s:email' % nid
-    email = redis.get(rd_account_email)
+    rd_account_id = 'account:%s:id' % nid
+    _id = redis.get(rd_account_id)
     rd_account_passwd = 'account:%s:passwd' % nid
+    redis.delete(rd_account_id)
     redis.delete(rd_account_email)
     redis.delete(rd_account_passwd)
-    redis.srem('account_emails', email)
-    redis.hdel('account_id_map', email)
+    redis.srem('account_ids', _id)
+    redis.hdel('account_id_map', _id)
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -138,16 +135,16 @@ def redirect_back(endpoint, **values):
         target = url_for(endpoint, **values)
     return redirect(target)
 
-class UniqueEmail(formencode.FancyValidator):
+class UniqueID(formencode.FancyValidator):
     def _convert_to_python(self, value, state):
-        print validators.Email().to_python(value)
         if is_account_exist(value):
-            raise formencode.Invalid(_('That email is already exists'), value,
+            raise formencode.Invalid(_('That ID is already exists'), value,
                     state)
         return value
 
 class RegisterSchema(formencode.Schema):
-    email = UniqueEmail()
+    id = UniqueID()
+    email = validators.Email(not_empty = True)
     passwd = validators.String(not_empty = True)
     passwd2 = validators.String(not_empty = True)
     remember = validators.Bool()

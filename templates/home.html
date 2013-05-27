@@ -2,11 +2,11 @@
 
 {% macro home_hero(NAME, name, errmsg) %}
 <div style="margin-top: 30px">
-  {% if not name %}
-  <p>{{gettext('Welcome to %(name)s!', name=NAME) }}</p>
-  <p>{{ gettext('Please Sign in or <a href="/register">Register</a>.') }}</p>
+  {% if not aname %}
+  <p>{{ _('Welcome to %(name)s!', name=NAME) }}</p>
+  <p>{{ _('Please Sign in or <a href="/register">Register</a>.') }}</p>
   {% else %}
-  <p>{{gettext('Welcome, <b>%(name)s</b>!', name=name)}}</p>
+  <p>{{ _('Welcome, <b>%(name)s</b>!', name=aname)}}</p>
   {% endif %}
 </div>
 {% endmacro %}
@@ -28,7 +28,7 @@
 <script>
   {% if errmsg %}
   $(function() {
-      $('#email').focus();
+      $('#id').focus();
   });
   {% endif %}
 </script>
