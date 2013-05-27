@@ -105,11 +105,12 @@ def remove_account_by_id(_id):
 
 def remove_account_by_nid(nid):
     rd_account_id = 'account:%s:id' % nid
-    _id = redis.get(rd_account_id)
+    rd_account_email = 'account:%s:email' % nid
     rd_account_passwd = 'account:%s:passwd' % nid
     redis.delete(rd_account_id)
     redis.delete(rd_account_email)
     redis.delete(rd_account_passwd)
+    _id = redis.get(rd_account_id)
     redis.srem('account_ids', _id)
     redis.hdel('account_id_map', _id)
 

@@ -4,7 +4,7 @@
 import argh
 from argh import arg
 from myapp.util import redis, confirm, remove_account_by_nid,\
-    remove_account_by_email, reset_secret_key
+    remove_account_by_id, reset_secret_key
 
 class ChoicesCompleter(object):
     def __init__(self, choices=[]):
@@ -19,39 +19,39 @@ def flushdb():
         print "Your DB has been flushed."
 
 def get_allaccounts():
-    emails = []
+    ids = []
     account_cnt = redis.get('account_cnt')
     if account_cnt:
         account_cnt = int(account_cnt)
         for nid in range(1, account_cnt + 1):
-            rd_account_email = 'account:%s:email' % nid
-            email = redis.get(rd_account_email)
-            if email:
-                emails.append(email)
-    return emails
+            rd_account_id = 'account:%s:id' % nid
+            _id = redis.get(rd_account_id)
+            if _id:
+                ids.append(_id)
+    return ids
 
 def allaccounts():
     "Show all accounts"
     for a in get_allaccounts():
         print a
 
-def email_completer(prefix, **kwargs):
+def id_completer(prefix, **kwargs):
     accounts = get_allaccounts()
     if len(prefix) > 0:
         return [a for a in accounts if a.startswith(prefix)]
     return accounts
 
-@arg('-e', '--email', help='delete account by email', completer=email_completer)
+@arg('-i', '--id', help='delete account by ID', completer=id_completer)
 @arg('-n', '--nid', type=int, help='delete account by nid')
-def delaccount(email, nid):
+def delaccount(id, nid):
     "Delete a account"
-    if not email or nid:
-        print 'please specify email or nid'
+    if not id or nid:
+        print 'please specify ID or nid'
         return
-    if email:
-        remove_account_by_email(email)
+    if id:
+        remove_account_by_id(id)
     elif nid:
-        remove_account_by_nid(email)
+        remove_account_by_nid(nid)
 
 def resetkey():
     "Reset session secret key"
