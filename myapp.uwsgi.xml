@@ -10,5 +10,6 @@
     <stats>/tmp/myapp.stats</stats>
     <log-format>%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)" "%(uagent)"</log-format>
     <uid>myapp-uid</uid>
+    <gid>myapp-uid</gid>
 </uwsgi>
 
