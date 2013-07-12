@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<uwsgi id="myapp-c9">
+<uwsgi id="myapp">
     <module>application:app</module>
     <virtualenv>/home/myuser/VirtualEnvs/env1</virtualenv>
     <socket>/tmp/myapp.sock</socket>
