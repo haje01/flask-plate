@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <uwsgi id="myapp-c9">
     <module>application:app</module>
-    <virtualenv>/home/haje01/VirtualEnvs/env1</virtualenv>
+    <virtualenv>/home/myuser/VirtualEnvs/env1</virtualenv>
     <socket>/tmp/myapp.sock</socket>
     <processes>4</processes>
     <chdir>/var/www/myapp</chdir>
@@ -10,6 +10,7 @@
     <stats>/tmp/myapp.stats</stats>
     <log-format>%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)" "%(uagent)"</log-format>
     <uid>myapp-uid</uid>
-    <gid>myapp-uid</gid>
+    <gid>myapp-gid</gid>
+    <chmod-socket>775</chmod-socket>
 </uwsgi>
 
