@@ -8,7 +8,7 @@
     <pidfile>/tmp/myapp.pid</pidfile>
     <daemonize>/var/log/uwsgi/myapp.log</daemonize>
     <stats>/tmp/myapp.stats</stats>
-    <log-format>%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)" "%(uagent)"</log-format>
+    <log-format>``%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size)`` "%(referer)" "%(uagent)"</log-format></log-format>
     <uid>myapp-uid</uid>
     <gid>www-data</gid>
     <chmod-socket>775</chmod-socket>
