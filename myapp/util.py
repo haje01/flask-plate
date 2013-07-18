@@ -1,4 +1,4 @@
-import redis
+import redis as _redis
 from myapp.config import NAME, DB_NO
 import os
 from urlparse import urlparse, urljoin
@@ -8,11 +8,13 @@ import formencode
 from formencode import validators
 from myapp.config import NAME
 from functools import wraps
+from myapp.make_config import make_config
 
 
 FIXEDSALT = '36234c3f0a1b4392b5159c68b6c90203'
 
-redis = redis.Redis(db = DB_NO)
+cfg = make_config()
+redis = _redis.Redis(db = cfg['DB_NO'])
 _ = gettext
 
 def is_account_exist(_id):

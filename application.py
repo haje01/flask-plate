@@ -9,32 +9,32 @@ from flaskext.babel import Babel
 import formencode
 from formencode import htmlfill
 from datetime import timedelta
-from myapp.config import NAME, DEV, DEBUG, PORT, LANG
-from myapp.const import BASE_DIR
+from myapp.make_config import make_config
 from myapp.util import is_account_exist, register_account, check_login,\
     account_id_by_nid, get_secret_key, redirect_back, validate_register, _,\
     get_redirect_target, auth_required
 
-
 app = Flask(__name__)
+make_config(app)
 app.secret_key = get_secret_key()
 app.permanent_session_lifetie = timedelta(days=1)
-app.config['BABEL_DEFAULT_LOCALE'] = LANG
 babel = Babel(app)
-formencode.api.set_stdtranslation(domain="FormEncode", languages=[LANG])
+formencode.api.set_stdtranslation(domain="FormEncode", languages=[app.config['LANG']])
 
-if DEBUG:
+DEBUG_PORT = 8000
+
+if app.debug:
     from werkzeug import SharedDataMiddleware
     app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-        '/static': os.path.join(BASE_DIR, 'static'),
-        '/external': os.path.join(BASE_DIR, 'external'),
+        '/static': os.path.join(app.root_path, 'static'),
+        '/external': os.path.join(app.root_path, 'external'),
     })
 
 def render_template(fname, *args, **kwargs):
-    kwargs['NAME'] = NAME
-    kwargs['DEBUG'] = DEBUG
-    kwargs['DEV'] = DEV
-    kwargs['LANG'] = LANG
+    kwargs['NAME'] = app.config['NAME']
+    kwargs['DEBUG'] = app.debug
+    kwargs['DEV'] = app.config['DEV']
+    kwargs['LANG'] = app.config['LANG']
     kwargs['active'] = fname.split('.')[0]
     kwargs['aname'] = session.get('aname', '')
     return _render_template(fname, *args, **kwargs)
@@ -113,5 +113,5 @@ def page_not_found(e):
     return _render_template('404.html'), 404
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=PORT, debug=DEBUG)
+    app.run('0.0.0.0', port=DEBUG_PORT)
 
