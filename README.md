@@ -41,30 +41,42 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 
 1. Edit as your own!
 
-### How to
+### Unittest
 
-1. If you want to use Sphinx as document tool, download latest Sphinx source and install (Note: current PIP version(1.2b) has timezone error).
+To unittest your application, modify `tests.py` and run it. You can override settings by edit `tests.cfg` file.
+
+
+### Documentation by Sphinx
+
+If you want to use Sphinx as document tool, 
+
+1. download latest Sphinx source and install (Note: current PIP version(1.2b) has timezone error).
     <pre>
         wget https://bitbucket.org/birkenfeld/sphinx/get/default.zip
         python setup.py build
         python setup.py install
     </pre>
 
-    Then, move into `docs/` folder. 
+2. Move into `docs/` folder and init sphinx document root.
     <pre>
         sphinx-quickstart
     </pre>
     
-    If you have more than one language to support, make locale folder in `translations/` folder:
+3. If you have more than one language to support, make locale folder in `translations/` folder:
     <pre>
-        mkdir translations/ko
+        mkdir -p translations/ko
     </pre>
+
+    Then extract message strings into `_build/locale` by:
+    <pre>
+        make gettext
+    </pre>
+
+    And add `locale_dirs = ['translations']` to the end of `conf.py`
 
     Init .po files by `docs/babel-init`. After translations is done, compile them by `docs/babel-compile`.
 
-1. To **unittest** your application, modify `tests.py` and run it. You can override settings by edit `tests.cfg` file.
-
-### Tips
+### Command Line Completion
 
 In order to activate admin script's tab completion:
 
@@ -74,7 +86,7 @@ In order to activate admin script's tab completion:
 
     http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
 
-1. After argcomplete installed by requirements.txt, activate it globally.
+1.  Admin Command line Completion
 
     https://pypi.python.org/pypi/argcomplete#global-completion
 
