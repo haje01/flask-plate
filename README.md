@@ -41,21 +41,9 @@ This is yet another boiler plate for flask, with bootstrap, redis &amp; formenco
 
 1. Edit as your own!
 
-### Tips
+### How to
 
-In order to activate admin script's tab completion:
-
-1. If you are using MacOSX, upgrade to bash 4.2 & install bash-completion.
-
-    http://techscienceinterest.blogspot.kr/2010/05/change-to-new-bash-shell-41-for-mac-os.html
-
-    http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
-
-1. After argcomplete installed by requirements.txt, activate it globally.
-
-    https://pypi.python.org/pypi/argcomplete#global-completion
-
-1. If you want to use Sphinx as document tool, download latest Sphinx source and install (PIP version(1.2b) has timezone error)
+1. If you want to use Sphinx as document tool, download latest Sphinx source and install (Note: current PIP version(1.2b) has timezone error).
     <pre>
         wget https://bitbucket.org/birkenfeld/sphinx/get/default.zip
         python setup.py build
@@ -72,4 +60,21 @@ In order to activate admin script's tab completion:
         mkdir translations/ko
     </pre>
 
-    Init *.po files by `docs/babel-init`. After translations is done, compile it by `docs/babel-compile`.
+    Init .po files by `docs/babel-init`. After translations is done, compile them by `docs/babel-compile`.
+
+1. To **unittest** your application, modify `tests.py` and run it. You can override settings by edit `tests.cfg` file.
+
+### Tips
+
+In order to activate admin script's tab completion:
+
+1. If you are using MacOSX, upgrade to bash 4.2 & install bash-completion.
+
+    http://techscienceinterest.blogspot.kr/2010/05/change-to-new-bash-shell-41-for-mac-os.html
+
+    http://blog.jeffterrace.com/2012/09/bash-completion-for-mac-os-x.html
+
+1. After argcomplete installed by requirements.txt, activate it globally.
+
+    https://pypi.python.org/pypi/argcomplete#global-completion
+
