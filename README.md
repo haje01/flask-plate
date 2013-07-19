@@ -55,3 +55,21 @@ In order to activate admin script's tab completion:
 
     https://pypi.python.org/pypi/argcomplete#global-completion
 
+1. If you want to use Sphinx as document tool, download latest Sphinx source and install (PIP version(1.2b) has timezone error)
+    <pre>
+        wget https://bitbucket.org/birkenfeld/sphinx/get/default.zip
+        python setup.py build
+        python setup.py install
+    </pre>
+
+    Then, move into `docs/` folder. 
+    <pre>
+        sphinx-quickstart
+    </pre>
+    
+    If you have more than one language to support, make locale folder in `translations/` folder:
+    <pre>
+        mkdir translations/ko
+    </pre>
+
+    Init *.po files by `docs/babel-init`. After translations is done, compile it by `docs/babel-compile`.

@@ -1,12 +1,10 @@
 import redis as _redis
-from myapp.config import NAME, DB_NO
 import os
 from urlparse import urlparse, urljoin
 from flask import request, url_for, redirect, session
 from flaskext.babel import gettext
 import formencode
 from formencode import validators
-from myapp.config import NAME
 from functools import wraps
 from myapp.make_config import make_config
 

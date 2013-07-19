@@ -12,5 +12,6 @@ def make_config(app=None):
     # customize config here
     cfg.from_object(default_config)
     cfg.from_pyfile('myapp.cfg', silent=True)
+    cfg.from_envvar('MYAPP_CONFIG', silent=True)
     cfg['BABEL_DEFAULT_LOCALE'] = cfg['LANG']
     return cfg
