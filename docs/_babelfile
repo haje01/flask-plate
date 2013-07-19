@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
+
+import os
+import glob
+import argh
+from argh import arg
+from subprocess import call
+
+def make_cmds(ctype, indir, outdir):
+    cmds = []
+    locales = [d.rsplit('/', 1)[1] for d in glob.glob(os.path.join(outdir, '*')) if os.path.isdir(d)]
+    for locale in locales:
+        if ctype == 'compile':
+            local_dir = os.path.join(indir, locale, 'LC_MESSAGES')
+            for po in glob.glob(os.path.join(local_dir, '*.po')):
+                fname = po.rsplit('/', 1)[1]
+                domain = fname.rsplit('.', 1)[0]
+                mo = os.path.join(local_dir, domain + '.mo')
+                cmds.append(['pybabel', ctype, '-l', locale, '-i', po, '-o', mo])
+        else:
+            #if ctype == 'init':
+            #    call(['make', 'gettext'])
+            for pot in glob.glob(os.path.join(indir, '*.pot')):
+                fname = pot.rsplit('/', 1)[1]
+                domain = fname.rsplit('.', 1)[0]
+                local_outdir = os.path.join(outdir, locale, 'LC_MESSAGES')
+                po = os.path.join(local_outdir, domain + '.po')
+                cmds.append(['pybabel', ctype, '-l', locale, '-i', pot, '-o', po])
+    return cmds
+
+
+@arg('-i', '--indir', help='input dir where *.pot files exist')
+@arg('-o', '--outdir', help='output dir in where *.po files to be created')
+def init(indir, outdir):
+    """Initialize *.po files from *.pot files"""
+    cmds = make_cmds('init', indir, outdir)
+    for cmd in cmds:
+        call(cmd)
+
+@arg('-i', '--indir', help='input dir where *.pot files exist')
+@arg('-o', '--outdir', help='output dir in where *.po files to be updated')
+def update(indir, outdir):
+    """Update *.po files from *.pot files"""
+    cmds = make_cmds('update', indir, outdir)
+    for cmd in cmds:
+        call(cmd)
+
+@arg('-i', '--indir', help='input dir where *.po files exist')
+def compile(indir):
+    """Compile *.po files into *.mo files"""
+    cmds = make_cmds('compile', indir, indir)
+    for cmd in cmds:
+        call(cmd)
+
+if __name__ == '__main__':
+    argh.dispatch_commands([init, update, compile])

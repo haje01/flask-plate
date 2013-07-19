@@ -1,0 +1,2 @@
+./_babelfile update -i _build/locale -o translations
+

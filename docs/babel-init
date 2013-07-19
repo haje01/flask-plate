@@ -1,0 +1,2 @@
+./_babelfile init -i _build/locale -o translations
+
