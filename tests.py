@@ -17,7 +17,7 @@ class MyappTestCase(unittest.TestCase):
     def tearDown(self):
         redis.flushdb()
 
-    def test_home_page(self):
+    def test_root_page(self):
         """Make sure url root(/) is redirect to /home"""
         rv = self.app.get('/')
         assert '302 FOUND' in rv.status
