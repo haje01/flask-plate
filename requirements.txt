@@ -3,3 +3,4 @@ redis==2.7.2
 argh==0.23.1
 argcomplete==0.5.4
 Flask-Babel==0.8
+formencode==1.2.4
