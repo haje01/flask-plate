@@ -3,10 +3,10 @@
 
 import os
 import unittest
-from myapp.make_config import make_config
 os.environ['MYAPP_CONFIG'] = 'tests.cfg'
 import application
 from myapp.util import redis
+
 
 class MyappTestCase(unittest.TestCase):
 
@@ -36,16 +36,16 @@ class MyappTestCase(unittest.TestCase):
 
     def register(self, userid, email, passwd, passwd2):
         return self.app.post('/register', data=dict(
-            id = userid,
-            email = email,
-            passwd = passwd,
-            passwd2 = passwd2,
+            id=userid,
+            email=email,
+            passwd=passwd,
+            passwd2=passwd2,
             ), follow_redirects=True)
 
     def login(self, userid, password):
         return self.app.post('/home', data=dict(
-            id = userid,
-            passwd = password,
+            id=userid,
+            passwd=password,
             ), follow_redirects=True)
 
     def logout(self):
@@ -75,4 +75,3 @@ class MyappTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

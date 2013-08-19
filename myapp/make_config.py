@@ -1,6 +1,7 @@
 import os
 from myapp import default_config
 
+
 def make_config(app=None):
     if app is not None:
         cfg = app.config
